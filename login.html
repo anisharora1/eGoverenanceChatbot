@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - e-Governance Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f6f8fc 0%, #e9f0f7 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark body {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+        .dark .glass-effect {
+            background: rgba(31, 41, 55, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <button onclick="document.documentElement.classList.toggle('dark')" 
+            class="fixed top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <span class="dark:hidden text-xl">🌙</span>
+        <span class="hidden dark:inline text-xl">☀️</span>
+    </button>
+
+    <div class="w-full max-w-md animate-fade-in">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                e-Governance Chatbot
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">Welcome back! Please login to your account.</p>
+        </div>
+
+        <form action="login.php" method="POST" class="glass-effect p-8 rounded-xl shadow-xl">
+            <!-- Username Field -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                <input type="text" name="username" placeholder="Enter your username" required 
+                       class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 
+                              dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <div class="relative">
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required 
+                           oninput="checkStrength(this.value)"
+                           class="input-field w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 
+                                  dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
+                    <button type="button" onclick="togglePassword()" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 
+                                   hover:text-gray-700 dark:hover:text-gray-200">
+                        <span id="toggleText">Show</span>
+                    </button>
+                </div>
+                <div class="mt-2 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div id="strengthBar" class="h-full rounded-full transition-all duration-300"></div>
+                </div>
+                <p id="strengthText" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+            </div>
+
+            <div class="flex items-center justify-between mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 
+                                               dark:border-gray-600 dark:bg-gray-800" required>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">
+                        Remember me
+                    </span>
+                </label>
+                <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-3 rounded-lg text-white font-medium mb-6">
+                Sign In
+            </button>
+
+            <div class="text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    Don't have an account? 
+                    <a href="register.html" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                        Register now
+                    </a>
+                </p>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" onclick="toggleTips()" 
+                        class="text-sm text-blue-600 dark:text-blue-400 hover:underline w-full text-center">
+                    Password Tips
+                </button>
+                <div id="tipsSection" class="mt-4 text-sm text-gray-600 dark:text-gray-300 
+                                           bg-blue-50 dark:bg-gray-800 p-4 rounded-lg hidden">
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Use at least 8 characters
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Include uppercase and lowercase letters
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Add numbers and special characters
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const toggleText = document.getElementById("toggleText");
+            if (password.type === "password") {
+                password.type = "text";
+                toggleText.textContent = "Hide";
+            } else {
+                password.type = "password";
+                toggleText.textContent = "Show";
+            }
+        }
+
+        function checkStrength(val) {
+            const strengthBar = document.getElementById("strengthBar");
+            const strengthText = document.getElementById("strengthText");
+
+            let strength = 0;
+            if (val.length >= 8) strength++;
+            if (/[A-Z]/.test(val)) strength++;
+            if (/[a-z]/.test(val)) strength++;
+            if (/[0-9]/.test(val)) strength++;
+            if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+            const percentage = (strength / 5) * 100;
+            strengthBar.style.width = percentage + "%";
+
+            if (strength <= 2) {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-red-500";
+                strengthText.textContent = "Weak password";
+            } else if (strength <= 4) {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-yellow-500";
+                strengthText.textContent = "Medium password";
+            } else {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-green-500";
+                strengthText.textContent = "Strong password";
+            }
+        }
+
+        function toggleTips() {
+            const tips = document.getElementById("tipsSection");
+            tips.classList.toggle("hidden");
+        }
+    </script>
+</body>
+
+</html>

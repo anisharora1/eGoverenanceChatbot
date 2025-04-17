@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - e-Governance Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f6f8fc 0%, #e9f0f7 100%);
+            min-height: 100vh;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark body {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+        .dark .glass-effect {
+            background: rgba(31, 41, 55, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <button onclick="document.documentElement.classList.toggle('dark')" 
+            class="fixed top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <span class="dark:hidden text-xl">🌙</span>
+        <span class="hidden dark:inline text-xl">☀️</span>
+    </button>
+
+    <div class="w-full max-w-md animate-fade-in">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                e-Governance Chatbot
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">Create your account to get started</p>
+        </div>
+
+        <form action="register.php" method="POST" class="glass-effect p-8 rounded-xl shadow-xl">
+            <!-- Username Field -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </span>
+                    <input type="text" name="username" placeholder="Choose a username" required 
+                           class="input-field w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 
+                                  dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </span>
+                    <input type="email" name="email" placeholder="Enter your email" required 
+                           class="input-field w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 
+                                  dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </span>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required 
+                           oninput="checkStrength(this.value)"
+                           class="input-field w-full pl-10 pr-10 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 
+                                  dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
+                    <button type="button" onclick="togglePassword()" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 
+                                   hover:text-gray-700 dark:hover:text-gray-200">
+                        <span id="toggleText">Show</span>
+                    </button>
+                </div>
+                <div class="mt-2 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div id="strengthBar" class="h-full rounded-full transition-all duration-300"></div>
+                </div>
+                <p id="strengthText" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 
+                                               dark:border-gray-600 dark:bg-gray-800" required>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">
+                        I agree to the <a href="terms.html" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">Terms & Conditions</a>
+                    </span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-3 rounded-lg text-white font-medium mb-6">
+                Create Account
+            </button>
+
+            <div class="text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    Already have an account? 
+                    <a href="login.html" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                        Sign in
+                    </a>
+                </p>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" onclick="toggleTips()" 
+                        class="text-sm text-blue-600 dark:text-blue-400 hover:underline w-full text-center">
+                    Registration Tips
+                </button>
+                <div id="tipsSection" class="mt-4 text-sm text-gray-600 dark:text-gray-300 
+                                           bg-blue-50 dark:bg-gray-800 p-4 rounded-lg hidden">
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Use a strong password with at least 8 characters
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Keep your login details secure
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Use a valid email address for account recovery
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-gray-600 dark:text-gray-300">
+            <p>Need help? Contact us at <a href="mailto:support@egovernance.com" class="text-blue-600 dark:text-blue-400 hover:underline">support@egovernance.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const toggleText = document.getElementById("toggleText");
+            if (password.type === "password") {
+                password.type = "text";
+                toggleText.textContent = "Hide";
+            } else {
+                password.type = "password";
+                toggleText.textContent = "Show";
+            }
+        }
+
+        function checkStrength(val) {
+            const strengthBar = document.getElementById("strengthBar");
+            const strengthText = document.getElementById("strengthText");
+
+            let strength = 0;
+            if (val.length >= 8) strength++;
+            if (/[A-Z]/.test(val)) strength++;
+            if (/[a-z]/.test(val)) strength++;
+            if (/[0-9]/.test(val)) strength++;
+            if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+            const percentage = (strength / 5) * 100;
+            strengthBar.style.width = percentage + "%";
+
+            if (strength <= 2) {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-red-500";
+                strengthText.textContent = "Weak password";
+            } else if (strength <= 4) {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-yellow-500";
+                strengthText.textContent = "Medium password";
+            } else {
+                strengthBar.className = "h-full rounded-full transition-all duration-300 bg-green-500";
+                strengthText.textContent = "Strong password";
+            }
+        }
+
+        function toggleTips() {
+            const tips = document.getElementById("tipsSection");
+            tips.classList.toggle("hidden");
+        }
+    </script>
+</body>
+
+</html>
